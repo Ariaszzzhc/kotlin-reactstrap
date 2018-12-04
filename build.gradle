@@ -1,0 +1,59 @@
+plugins {
+    id 'kotlin2js' version '1.3.0'
+    id "com.moowork.node" version "1.2.0"
+    id "java"
+}
+
+group 'com.hiarias'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven {
+        url "https://kotlin.bintray.com/kotlin-js-wrappers/"
+    }
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js"
+    compile "org.jetbrains.kotlinx:kotlinx-html-js:0.6.10"
+    compile "org.jetbrains:kotlin-react:$react_version-kotlin-$kotlin_version"
+}
+
+compileKotlin2Js {
+    kotlinOptions {
+        outputFile = "$projectDir/build/classes/main/${name}.js"
+        moduleKind = "commonjs"
+        sourceMap = true
+        sourceMapEmbedSources = "always"
+    }
+}
+
+task processPkg(type: Copy) {
+    from '.'
+    into 'build/npm'
+    include 'package.json'
+    expand(
+            kotlin_version: "$kotlin_version",
+            react_version: "react_version",
+    )
+}
+
+task prepublish(type: Copy) {
+    from '.'
+    into 'build/npm'
+    exclude 'package.json'
+    exclude 'build/nom'
+}
+
+npm_publish {
+    args = ['--access', 'public']
+    execOverrides {
+        it.workingDir = 'build/npm'
+    }
+}
+
+npm_publish.dependsOn prepublish
+npm_publish.dependsOn processPkg
+prepublish.dependsOn build

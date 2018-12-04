@@ -1,0 +1,18 @@
+{
+  "name": "@kotlin/reactstrap",
+  "version": "1.0.0",
+  "description": "kotlin wrapper for reactstrap",
+  "files": [
+    "build/classes",
+    "package.json",
+    "README.md"
+  ],
+  "main": "build/classes/main/kotlin-reactstrap.js",
+  "peerDependencies": {
+    "kotlin": "^$kotlin_version",
+    "reactstrap": ">= 6.x.x",
+    "@jetbrains/kotlin-react": "^$react_version"
+  },
+  "author": "Arias",
+  "license": "MIT"
+}
