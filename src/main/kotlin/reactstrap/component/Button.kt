@@ -17,9 +17,9 @@ external class Button : Component<Button.Props, RState> {
         var disabled: Boolean?
         var outline: Boolean?
         // tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-        var tag: String?
+        var tag: Any?
         // PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.string])
-        var innerRef: String?
+        var innerRef: Any?
         var onClick: (() -> Unit)?
         var size: String?
         var children: Node?
